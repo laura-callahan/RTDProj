@@ -1,0 +1,76 @@
+<!DOCTYPE html>	
+<html lang="en-US" dir="ltr">  <!--direction of language l to r-->
+
+<head>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<title>
+		RTD Map
+	</title>
+</head>
+
+<body>
+	<div id="map"></div>
+
+	<script>
+		function initMap() {
+			var uluru = {lat: 39.7392, lng: -104.9903};
+			var map = new google.maps.Map(document.getElementById('map'), {
+				zoom: 10, //10 is city level
+				center: uluru
+			});
+			var markerArray = [];
+			var marker = new google.maps.Marker({
+				position: uluru,
+				map: map
+			});
+			var busLocArray = [];
+			busLocArray = [{lat: 39.75115, lng: -104.9998}, {lat: 39.751815, lng:-105.000764}];
+			var busMarker = new google.maps.Marker({
+				position: busLoc,
+				map: map
+			});
+			markerArray.push(marker);
+			if (navigator.geolocation) {
+
+				navigator.geolocation.getCurrentPosition(function (position) {
+					userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+					map.setCenter(userLocation);
+				  	// Deletes all markers in the array by removing references to them.
+				  	markerArray[0].setMap(null);
+				  	var marker2 = new google.maps.Marker({
+				  		position: userLocation,
+				  		map: map
+				  	});
+				  	map.setZoom(15); 
+				  });
+
+			}
+			// var flightPlanCoordinates = [
+			// {lat: 39.74595, lng: -104.9932},
+			// {lat: 39.745893, lng: -104.993246},
+			// {lat: 39.75115, lng: -104.9998},
+			// {lat: 39.751815, lng:-105.000764},
+			// ];
+			// var flightPath = new google.maps.Polyline({
+			// 	path: flightPlanCoordinates,
+			// 	geodesic: true,
+			// 	strokeColor: '#FF0000',
+			// 	strokeOpacity: 1.0,
+			// 	strokeWeight: 2
+			// });
+
+			flightPath.setMap(map);
+
+
+
+		}
+	</script>
+	<script async defer
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKPXt-eHBe_12W0ZlCMM8rhgdLN8WRn0M&callback=initMap">
+</script>
+</body>
+
+<footer>
+</footer>
+
+</html>
